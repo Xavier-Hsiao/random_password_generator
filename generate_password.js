@@ -6,52 +6,44 @@ function pickRandomCharacter(array) {
 
 
 // define generatePassword function
-function generatePassword() {
+function generatePassword(options) {
   // define all the elements users might use
   const lowerCaseLetters = 'abcdefghijklmnopqrstuvwxyz'
   const upperCaseLetters = lowerCaseLetters.toUpperCase()
   const numbers = '0123456789'
   const symbols = '`~!@$%^&*()-_+={}[]|;:"<>,.?/'
 
-  const dummyData = {
-    length: 12,
-    lowercase: 'on',
-    uppercase: 'on',
-    numbers: 'on',
-    excludeCharacters: '40'
-  }
-
   let collection = []
   
-  if(dummyData.lowercase) {
+  if(options.lowercase) {
     collection = collection.concat([...lowerCaseLetters])
   }
   
-  if(dummyData.uppercase) {
+  if(options.uppercase) {
     collection = collection.concat([...upperCaseLetters])
   }
   
-  if(dummyData.numbers) {
+  if(options.numbers) {
     collection = collection.concat([...numbers])
   }
 
-  if(dummyData.symbols) {
+  if(options.symbols) {
     collection = collection.concat([...symbols])
   }
 
 
   // remove what users might want to exclude
   collection = collection.filter(character => 
-    // if(dummyData.excludeCharacters.includes(character)) {
+    // if(options.excludeCharacters.includes(character)) {
     //   return false
     // } 
     // return true
-    !dummyData.excludeCharacters.includes(character)
+    !options.excludeCharacters.includes(character)
   )
 
   // start generating random passwords
   let password = ''
-  for(let i = 0; i < dummyData.length; i++) {
+  for(let i = 0; i < options.length; i++) {
     password += pickRandomCharacter(collection)
   }
   
@@ -59,4 +51,5 @@ function generatePassword() {
   return password
 }
 
-generatePassword();
+// export generatePassword function
+module.exports = generatePassword
